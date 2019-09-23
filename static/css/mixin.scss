@@ -1,0 +1,98 @@
+@charset "utf-8";
+//pixels to rems
+@function pxToRem($px) {
+    @return $px / 75px * 1rem;
+  }
+@mixin fixedCenter() {
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%)
+}
+@mixin tips {
+    text-align:center;
+    color:#959595;
+    line-height:50px;
+    font-size:14px
+}
+/**
+ * [keyframes 定义css关键帧动画keyframes]
+ * @param  {[type]} $name [定义动画名字]
+ * @return {[type]}       [no]
+ */
+@mixin keyframes($name){
+    @keyframes #{$name} {
+        @content;
+    }
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+}
+@mixin center($x: center, $y: center, $xx: center, $yy: center) {
+    @include display(flex);
+    @include display(box);
+    justify-content: $x;
+    align-items: $y;
+    @include prefix(box-pack, $xx);
+    @include prefix(box-align, $yy);
+}
+/**
+ * [animation 定义animation动画]
+ * @param  {[type]} $value [值]
+ * @return {[type]}        [description]
+ *
+ *  example: @include animation(name .5s linear);
+ */
+@mixin prefix($name,$value){
+    #{$name}:$value;
+    -webkit-#{$name}:$value;
+}
+
+
+@mixin display($value) {
+    display:-webkit-#{$value};
+}
+
+
+// // 居中 $x = 水平， $y = 垂直
+// @mixin center($x: center, $y: center, $xx: center, $yy: center) {
+//     @include display(flex);
+//     @include display(box);
+//     justify-content: $x;
+//     align-items: $y;
+//     @include prefix(box-pack, $xx);
+//     @include prefix(box-align, $yy);
+// }
+@mixin backgroundImage($x: center,$y: center,$sx:100%,$sy:auto){
+    background-repeat: no-repeat;
+    background-size: $sx $sy;
+    background-position-x: $x;
+    background-position-y: $y;
+}
+@mixin  imgCenter() {
+    position: absolute;
+    top:50%;
+    left:0;
+    right:0;
+    width: 100%;
+    margin:0 auto;
+    transform: translateY(-50%);
+}
+// 富文本样式恢复
+@mixin richtext {
+h1{font-size:2em; margin:.67em 0}
+h2{font-size:1.5em; margin:.75em 0}
+h3{font-size:1.17em; margin:.83em 0}
+h5{font-size:.83em; margin:1.5em 0}
+h6{font-size:.75em; margin:1.67em 0}
+h1,h2,h3,h4,h5,h6,b,strong{font-weight:bold}
+h4,p,blockquote,ul,fieldset,form,ol,dl,dir,menu{margin:1.12em 0}
+ul, ol, li{display:list-item;list-style:decimal}
+table{border-spacing:2px;}
+thead,tbody,tfoot{vertical-align:middle}
+td,th{vertical-align:inherit}
+s,strike,del{text-decoration:line-through}
+hr{border:1px inset}
+i,cite,em,var,address{font-style:italic}
+ol,ul,dir,menu,dd{margin-left:40px}
+}
